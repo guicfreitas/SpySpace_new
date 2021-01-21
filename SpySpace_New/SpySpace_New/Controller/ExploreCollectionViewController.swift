@@ -51,10 +51,7 @@ class ExploreCollectionViewController: UICollectionViewController {
         
         cell.backImage.image = UIImage(named: "1")
         // Configure the cell
-       
-        cell.backgroundColor = .red
-       
-        
+    
         //cell.backgroundColor = .red
         cell.layer.cornerRadius = 10
         
