@@ -9,12 +9,26 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class ExploreCollectionViewController: UICollectionViewController {
+
+class ExploreCollectionViewController: UICollectionViewController, ExpandedCellDelegate {
    
+    
+    
+    var cellWidth: CGFloat{
+        return collectionView.frame.size.width - 40
+    }
+   
+    var expandedHeight: CGFloat = 0
+    var notExpanded: CGFloat = 128
+    
+    var dataSource = ["data0","data1"]
+    var isExpanded = [Bool]()
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isExpanded = Array(repeating: false, count: dataSource.count)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -43,7 +57,7 @@ class ExploreCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 1
+        return dataSource.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,12 +65,36 @@ class ExploreCollectionViewController: UICollectionViewController {
         
         cell.backImage.image = UIImage(named: "1")
         // Configure the cell
-    
-        //cell.backgroundColor = .red
+        cell.backgroundColor = .red
         cell.layer.cornerRadius = 10
+        
+        expandedHeight = cell.hiddenTitle.frame.height + cell.textView.frame.height + 306
+        
+        cell.indexPath = indexPath
+        cell.delegate = self
+        
+        if(isExpanded[indexPath.row]){
+            cell.heightImage.constant = 256
+            cell.gradientView.isHidden = true
+            cell.mainTitle.isHidden = true
+        }else{
+            cell.heightImage.constant = 128
+            cell.gradientView.isHidden = false
+            cell.mainTitle.isHidden = false
+        }
+
         
         
         return cell
+    }
+    func didTouchOpen(indexPath: IndexPath) {
+        isExpanded[indexPath.row] = !isExpanded[indexPath.row]
+        UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.9, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+                      self.collectionView.reloadItems(at: [indexPath])
+            self.collectionView.layoutIfNeeded()
+                    }, completion: { success in
+                        print("success")
+                })
     }
 
     // MARK: UICollectionViewDelegate
@@ -93,14 +131,12 @@ class ExploreCollectionViewController: UICollectionViewController {
 }
 
 
-//extension ExploreCollectionViewController: UICollectionViewDelegateFlowLayout{
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let colWidth = collectionView.frame.width
-//        //let colHeight = collectionView.frame.height
-//        
-//        let cellWidth = colWidth - 40
-//        let cellHeight = 121
-//        
-//        return CGSize(width: Int(cellWidth), height: cellHeight)
-//    }
-//}
+extension ExploreCollectionViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if isExpanded[indexPath.row] == true{
+                    return CGSize(width: cellWidth, height: expandedHeight)
+               }else{
+                   return CGSize(width: cellWidth, height: notExpanded)
+               }
+    }
+}
