@@ -14,6 +14,7 @@
 		790406C425B5C3CC006D28C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790406C225B5C3CC006D28C7 /* LaunchScreen.storyboard */; };
 		790406CF25B5C3CC006D28C7 /* SpySpace_NewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790406CE25B5C3CC006D28C7 /* SpySpace_NewTests.swift */; };
 		790406DA25B5C3CC006D28C7 /* SpySpace_NewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790406D925B5C3CC006D28C7 /* SpySpace_NewUITests.swift */; };
+		791756A025BB22CA00382D93 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7917569F25BB22CA00382D93 /* SectionHeaderReusableView.swift */; };
 		79F33D9C25B7184700D265B0 /* ExploreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F33D9B25B7184700D265B0 /* ExploreCollectionViewController.swift */; };
 		79F33DA225B86BA900D265B0 /* ExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F33DA125B86BA900D265B0 /* ExploreCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		790406D525B5C3CC006D28C7 /* SpySpace_NewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpySpace_NewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		790406D925B5C3CC006D28C7 /* SpySpace_NewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpySpace_NewUITests.swift; sourceTree = "<group>"; };
 		790406DB25B5C3CC006D28C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7917569F25BB22CA00382D93 /* SectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		79F33D9B25B7184700D265B0 /* ExploreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewController.swift; sourceTree = "<group>"; };
 		79F33DA125B86BA900D265B0 /* ExploreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,14 @@
 			path = SpySpace_NewUITests;
 			sourceTree = "<group>";
 		};
+		7917569E25BB229700382D93 /* ReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				7917569F25BB22CA00382D93 /* SectionHeaderReusableView.swift */,
+			);
+			path = ReusableView;
+			sourceTree = "<group>";
+		};
 		79F33D9025B705DB00D265B0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		79F33D9125B705E500D265B0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7917569E25BB229700382D93 /* ReusableView */,
 				790406BD25B5C3CA006D28C7 /* Main.storyboard */,
 				790406C225B5C3CC006D28C7 /* LaunchScreen.storyboard */,
 			);
@@ -294,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79F33DA225B86BA900D265B0 /* ExploreCollectionViewCell.swift in Sources */,
+				791756A025BB22CA00382D93 /* SectionHeaderReusableView.swift in Sources */,
 				790406B825B5C3CA006D28C7 /* AppDelegate.swift in Sources */,
 				790406BA25B5C3CA006D28C7 /* SceneDelegate.swift in Sources */,
 				79F33D9C25B7184700D265B0 /* ExploreCollectionViewController.swift in Sources */,

@@ -19,13 +19,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Efb-7W-f7M">
                             <size key="itemSize" width="382" height="413"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="vKj-V8-6tx" customClass="ExploreCollectionViewCell" customModule="SpySpace_New" customModuleProvider="target">
-                                <rect key="frame" x="16" y="0.0" width="382" height="413"/>
+                                <rect key="frame" x="16" y="50" width="382" height="413"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="h80-IP-xvD">
                                     <rect key="frame" x="0.0" y="0.0" width="382" height="413"/>
@@ -114,6 +114,26 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SectionHeaderReusableView" id="2g4-20-Vjj" customClass="SectionHeaderReusableView" customModule="SpySpace_New" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qy-vX-E5x">
+                                    <rect key="frame" x="20" y="10" width="119.5" height="30"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="9Qy-vX-E5x" firstAttribute="leading" secondItem="2g4-20-Vjj" secondAttribute="leading" constant="20" id="Lh0-0U-XXC"/>
+                                <constraint firstItem="9Qy-vX-E5x" firstAttribute="top" secondItem="2g4-20-Vjj" secondAttribute="top" constant="10" id="Mkj-wV-3fU"/>
+                                <constraint firstAttribute="bottom" secondItem="9Qy-vX-E5x" secondAttribute="bottom" constant="10" id="lgE-bu-NBl"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="sectionLabelTitle" destination="9Qy-vX-E5x" id="bcC-tA-tMi"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="f3K-kW-Kbk" id="JbY-0G-BdS"/>
                             <outlet property="delegate" destination="f3K-kW-Kbk" id="Nuh-oM-OMj"/>

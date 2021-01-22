@@ -8,6 +8,7 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
+private let sectionHeader = "SectionHeaderReusableView"
 
 
 class ExploreCollectionViewController: UICollectionViewController, ExpandedCellDelegate {
@@ -20,7 +21,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
    
     var expandedHeight: CGFloat = 0
     var notExpanded: CGFloat = 128
-    
+    var sections = ["Explorar","Favoritos"]
     var dataSource = ["data0","data1"]
     var isExpanded = [Bool]()
 
@@ -51,13 +52,21 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return sections.count
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return dataSource.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeader, for: indexPath) as! SectionHeaderReusableView
+        
+        sectionHeaderView.sectionTitle = sections[indexPath.section]
+        
+        return sectionHeaderView
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
