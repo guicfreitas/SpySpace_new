@@ -8,7 +8,11 @@
 import UIKit
 protocol ExpandedCellDelegate: NSObjectProtocol{
     func didTouchOpen(indexPath:IndexPath)
+    func didTouchSave(indexPath:IndexPath)
 }
+
+   
+
 
 class ExploreCollectionViewCell: UICollectionViewCell {
     
@@ -35,6 +39,15 @@ class ExploreCollectionViewCell: UICollectionViewCell {
         
         if let delegate = self.delegate{
             delegate.didTouchOpen(indexPath: indexPath)
+              
+           
+        }
+        
+    }
+    
+    @IBAction func didTouchSave(_ sender: Any){
+        if let delegate = self.delegate{
+            delegate.didTouchSave(indexPath: indexPath)
               
            
         }

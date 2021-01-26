@@ -22,7 +22,7 @@ struct Favoritos{
     }
     
     func createRecord(completionHandler: @escaping (Error?)->()){
-        let record = CKRecord(recordType: "Curiosidade")
+        let record = CKRecord(recordType: "Favoritos")
         
         //Cast para CKRecordValue pois o compilador swift nao compreende que uma String adota um CKRecordValue
         record["title"] = self.title as CKRecordValue
@@ -45,22 +45,22 @@ struct Favoritos{
         }
     }
     
-    func readRecord(completionHandler: @escaping ([Curiosidade]?,Error?)->()){
-        _ = CKRecord(recordType: "Curiosidade")
+    func readRecord(completionHandler: @escaping ([Favoritos]?,Error?)->()){
+        _ = CKRecord(recordType: "Favoritos")
         
         let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: "Curiosidade", predicate: predicate)
+        let query = CKQuery(recordType: "Favoritos", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         //operation.resultsLimit = 5
         
-        var curiosidadeRecords: [Curiosidade] = []
+        var favoritosRecords: [Favoritos] = []
         
         operation.recordFetchedBlock = { record in
             
             // record é um registro do tipo Letter que foi obtido na operação
-            let curiosidade = Curiosidade(title: record["title"] as! String, content: record["content"] as! String,image: record["image"] as? CKAsset, RecordId: record.recordID)
+            let favoritos = Favoritos(title: record["title"] as! String, content: record["content"] as! String,image: record["image"] as? CKAsset, RecordId: record.recordID)
             
-            curiosidadeRecords.append(curiosidade)
+            favoritosRecords.append(favoritos)
             
             
         }
@@ -68,8 +68,8 @@ struct Favoritos{
         operation.queryCompletionBlock = { (cursor, error) in
             
             if error == nil {
-                print("succes")
-                completionHandler(curiosidadeRecords,nil)
+                print("succesFavoritos")
+                completionHandler(favoritosRecords,nil)
             } else {
                 
                 completionHandler(nil,error)

@@ -15,6 +15,8 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     
     
     
+    
+    
     var cellWidth: CGFloat{
         return collectionView.frame.size.width - 40
     }
@@ -24,7 +26,13 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     var expandedHeight: CGFloat = 0
     var notExpanded: CGFloat = 128
     var sections = ["Explorar","Favoritos"]
-    var favoritesData: [Favoritos] = []
+    var favoritesData: [Favoritos] = []{
+        didSet{
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
     var randomData: [Curiosidade] = []
     var dataSource: [Curiosidade] = []{
         didSet{
@@ -50,6 +58,19 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
         collectionView.alwaysBounceVertical = true
         collectionView.refreshControl = refreshControl
+        
+        let favoritoTemp = Favoritos(title: "", content: "")
+        favoritoTemp.readRecord(){
+            fetchedRecords,error in
+            
+            guard let records = fetchedRecords,error == nil else{
+                print("Error in read CloudKit", error as Any)
+                return
+            }
+            
+            self.favoritesData = records
+        }
+        
         
         
         
@@ -132,7 +153,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         
         return sectionHeaderView
     }
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ExploreCollectionViewCell
@@ -178,6 +199,23 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
             print("success")
         })
     }
+    
+    func didTouchSave(indexPath: IndexPath) {
+        let favorito = randomData[indexPath.row]
+        print("salvando favoritos")
+        favorito.createRecord(){
+            error in
+            if error != nil{
+                print("Error in CloudKit:", error as Any)
+            }else{
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    
     
     // MARK: UICollectionViewDelegate
     
