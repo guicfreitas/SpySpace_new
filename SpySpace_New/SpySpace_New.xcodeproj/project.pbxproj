@@ -15,6 +15,9 @@
 		790406CF25B5C3CC006D28C7 /* SpySpace_NewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790406CE25B5C3CC006D28C7 /* SpySpace_NewTests.swift */; };
 		790406DA25B5C3CC006D28C7 /* SpySpace_NewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790406D925B5C3CC006D28C7 /* SpySpace_NewUITests.swift */; };
 		791756A025BB22CA00382D93 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7917569F25BB22CA00382D93 /* SectionHeaderReusableView.swift */; };
+		791756AD25BEF04800382D93 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 791756AC25BEF04800382D93 /* CloudKit.framework */; };
+		791756B225BEF2FB00382D93 /* Curiosidade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791756B125BEF2FB00382D93 /* Curiosidade.swift */; };
+		7932B3F625C0600400893B05 /* Favoritos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7932B3F525C0600400893B05 /* Favoritos.swift */; };
 		79F33D9C25B7184700D265B0 /* ExploreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F33D9B25B7184700D265B0 /* ExploreCollectionViewController.swift */; };
 		79F33DA225B86BA900D265B0 /* ExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F33DA125B86BA900D265B0 /* ExploreCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,10 @@
 		790406D925B5C3CC006D28C7 /* SpySpace_NewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpySpace_NewUITests.swift; sourceTree = "<group>"; };
 		790406DB25B5C3CC006D28C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7917569F25BB22CA00382D93 /* SectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderReusableView.swift; sourceTree = "<group>"; };
+		791756A725BEF03F00382D93 /* SpySpace_New.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpySpace_New.entitlements; sourceTree = "<group>"; };
+		791756AC25BEF04800382D93 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		791756B125BEF2FB00382D93 /* Curiosidade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curiosidade.swift; sourceTree = "<group>"; };
+		7932B3F525C0600400893B05 /* Favoritos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favoritos.swift; sourceTree = "<group>"; };
 		79F33D9B25B7184700D265B0 /* ExploreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewController.swift; sourceTree = "<group>"; };
 		79F33DA125B86BA900D265B0 /* ExploreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791756AD25BEF04800382D93 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +95,7 @@
 				790406CD25B5C3CC006D28C7 /* SpySpace_NewTests */,
 				790406D825B5C3CC006D28C7 /* SpySpace_NewUITests */,
 				790406B525B5C3CA006D28C7 /* Products */,
+				791756AB25BEF04800382D93 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +112,7 @@
 		790406B625B5C3CA006D28C7 /* SpySpace_New */ = {
 			isa = PBXGroup;
 			children = (
+				791756A725BEF03F00382D93 /* SpySpace_New.entitlements */,
 				79F33D9225B705F100D265B0 /* Controller */,
 				79F33D9125B705E500D265B0 /* View */,
 				79F33D9025B705DB00D265B0 /* Model */,
@@ -138,9 +148,19 @@
 			path = ReusableView;
 			sourceTree = "<group>";
 		};
+		791756AB25BEF04800382D93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				791756AC25BEF04800382D93 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		79F33D9025B705DB00D265B0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				791756B125BEF2FB00382D93 /* Curiosidade.swift */,
+				7932B3F525C0600400893B05 /* Favoritos.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -304,9 +324,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791756B225BEF2FB00382D93 /* Curiosidade.swift in Sources */,
 				79F33DA225B86BA900D265B0 /* ExploreCollectionViewCell.swift in Sources */,
 				791756A025BB22CA00382D93 /* SectionHeaderReusableView.swift in Sources */,
 				790406B825B5C3CA006D28C7 /* AppDelegate.swift in Sources */,
+				7932B3F625C0600400893B05 /* Favoritos.swift in Sources */,
 				790406BA25B5C3CA006D28C7 /* SceneDelegate.swift in Sources */,
 				79F33D9C25B7184700D265B0 /* ExploreCollectionViewController.swift in Sources */,
 			);
@@ -484,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpySpace_New/SpySpace_New.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R5H255ZF9U;
 				INFOPLIST_FILE = SpySpace_New/Info.plist;
@@ -503,6 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpySpace_New/SpySpace_New.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R5H255ZF9U;
 				INFOPLIST_FILE = SpySpace_New/Info.plist;
