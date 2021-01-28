@@ -29,6 +29,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     var favoritesData: [Favoritos] = []{
         didSet{
             DispatchQueue.main.async {
+                
                 self.isExpandedFav = Array(repeating: false, count:self.favoritesData.count)
             }
         }
@@ -165,13 +166,15 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         let curi = randomData[indexPath.row]
         cell.layer.cornerRadius = 10
         
-        expandedHeight = cell.hiddenTitle.frame.height + cell.textView.frame.height + 310
         
-        cell.indexPath = indexPath
-        cell.delegate = self
         
         
         if(indexPath.section == 0){
+            expandedHeight = cell.hiddenTitle.frame.height + cell.textView.frame.height + 310
+            
+            cell.indexPath = indexPath
+            cell.delegate = self
+            
             cell.mainTitle.text = curi.title
             cell.hiddenTitle.text = curi.title
             cell.textView.text = curi.content
@@ -194,6 +197,12 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
                 curiFav = dataSource[iterador]
                 iterador += 1
             }
+            
+            expandedHeight = cell.hiddenTitle.frame.height + cell.textView.frame.height + 310
+            
+            cell.indexPath = indexPath
+            cell.delegate = self
+            
             cell.mainTitle.text = curiFav.title
             cell.hiddenTitle.text = curiFav.title
             cell.textView.text = curiFav.content
@@ -212,17 +221,6 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         
         // Configure the cell
         //cell.backgroundColor = .red
-        
-        
-        if(isExpanded[indexPath.row]){
-            cell.heightImage.constant = 256
-            cell.gradientView.isHidden = true
-            cell.mainTitle.isHidden = true
-        }else{
-            cell.heightImage.constant = 128
-            cell.gradientView.isHidden = false
-            cell.mainTitle.isHidden = false
-        }
         
         
         
