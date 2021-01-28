@@ -10,10 +10,8 @@ import CloudKit
 import UIKit
 
 struct Favoritos{
-    var title: String
-    var content: String
-    var image: CKAsset?
-    var RecordId: CKRecord.ID? = nil
+    
+    var RecordId: String
     
     
     
@@ -25,9 +23,8 @@ struct Favoritos{
         let record = CKRecord(recordType: "Favoritos")
         
         //Cast para CKRecordValue pois o compilador swift nao compreende que uma String adota um CKRecordValue
-        record["title"] = self.title as CKRecordValue
-        record["content"] = self.content as CKRecordValue
-        record["image"] = self.image
+        record["recordStr"] = self.RecordId as CKRecordValue
+        
         
         //RecordId = record.recordID
         
@@ -58,7 +55,7 @@ struct Favoritos{
         operation.recordFetchedBlock = { record in
             
             // record é um registro do tipo Letter que foi obtido na operação
-            let favoritos = Favoritos(title: record["title"] as! String, content: record["content"] as! String,image: record["image"] as? CKAsset, RecordId: record.recordID)
+            let favoritos = Favoritos(RecordId: record["recordStr"] as! String)
             
             favoritosRecords.append(favoritos)
             
@@ -82,25 +79,26 @@ struct Favoritos{
         
     }
     
-    mutating func parseImageToAsset(imageF: UIImage){
-        let data = imageF.pngData(); // UIImage -> NSData, see also UIImageJPEGRepresentation
-        let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(NSUUID().uuidString+".dat")
-        do {
-            try data!.write(to: url!,options: [])
-            self.image =  CKAsset(fileURL: url!)
-        } catch let e as NSError {
-            print("Error! \(e)");
+    func readRecordWithId() -> Curiosidade{
+        let favoriteID = CKRecord.ID(recordName: self.RecordId)
+        var curi = Curiosidade(title: "", content: "")
+        container.publicCloudDatabase.fetch (withRecordID: favoriteID) { record, error in
             
-        }
-        
+                if error != nil {
+
+                    print("there was an error",error as Any)
+
+                } else {
+                    
+                    curi.title = (record?.object(forKey: "title") as! String)
+                    curi.content = (record?.object(forKey: "content") as! String)
+                    curi.image = (record?.object(forKey: "image") as! CKAsset)
+                    
+                    
+                }
+            }
+        return curi
     }
-    func parseAssetToImage() -> UIImage?{
-        
-        if let data = NSData(contentsOf: (self.image?.fileURL)!) {
-            return UIImage(data: data as Data)
-        }
-        return nil
-        
-    }
+
 
 }

@@ -29,7 +29,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     var favoritesData: [Favoritos] = []{
         didSet{
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.isExpandedFav = Array(repeating: false, count:self.favoritesData.count)
             }
         }
     }
@@ -49,6 +49,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         }
     }
     var isExpanded = [Bool]()
+    var isExpandedFav = [Bool]()
     
     
     
@@ -58,19 +59,6 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
         collectionView.alwaysBounceVertical = true
         collectionView.refreshControl = refreshControl
-        
-        let favoritoTemp = Favoritos(title: "", content: "")
-        favoritoTemp.readRecord(){
-            fetchedRecords,error in
-            
-            guard let records = fetchedRecords,error == nil else{
-                print("Error in read CloudKit", error as Any)
-                return
-            }
-            
-            self.favoritesData = records
-        }
-        
         
         
         
@@ -96,6 +84,7 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     
     override func viewWillAppear(_ animated: Bool) {
         let curiosidade = Curiosidade(title:"teste", content: "teste", image: nil)
+        let favoritos = Favoritos(RecordId: "")
         DispatchQueue.main.async {
             curiosidade.readRecord(){
                 fetchedRecords,error in
@@ -110,7 +99,22 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
                 
                 
             }
-            self.collectionView.reloadData()
+        }
+        DispatchQueue.main.async {
+            favoritos.readRecord(){
+                fetchedRecords,error in
+                
+                guard let records = fetchedRecords,error == nil else{
+                    
+                    print("Error in read CloudKit", error as Any)
+                    return
+                }
+                
+                self.favoritesData = records
+                
+                
+            }
+            
             
         }
         
@@ -159,22 +163,56 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ExploreCollectionViewCell
         
         let curi = randomData[indexPath.row]
-        
-        cell.mainTitle.text = curi.title
-        cell.hiddenTitle.text = curi.title
-        cell.textView.text = curi.content
-        cell.backImage.image = curi.parseAssetToImage()
-        
-        
-        
-        // Configure the cell
-        //cell.backgroundColor = .red
         cell.layer.cornerRadius = 10
         
         expandedHeight = cell.hiddenTitle.frame.height + cell.textView.frame.height + 310
         
         cell.indexPath = indexPath
         cell.delegate = self
+        
+        
+        if(indexPath.section == 0){
+            cell.mainTitle.text = curi.title
+            cell.hiddenTitle.text = curi.title
+            cell.textView.text = curi.content
+            cell.backImage.image = curi.parseAssetToImage()
+            
+            if(isExpanded[indexPath.row]){
+                cell.heightImage.constant = 256
+                cell.gradientView.isHidden = true
+                cell.mainTitle.isHidden = true
+            }else{
+                cell.heightImage.constant = 128
+                cell.gradientView.isHidden = false
+                cell.mainTitle.isHidden = false
+            }
+            
+        }else if(indexPath.section == 1){
+            var iterador = 0
+            var curiFav = Curiosidade(title: "", content: "")
+            while(favoritesData[indexPath.row].RecordId != dataSource[iterador].RecordId?.recordName){
+                curiFav = dataSource[iterador]
+                iterador += 1
+            }
+            cell.mainTitle.text = curiFav.title
+            cell.hiddenTitle.text = curiFav.title
+            cell.textView.text = curiFav.content
+            cell.backImage.image = curiFav.parseAssetToImage()
+            
+            if(isExpandedFav[indexPath.row]){
+                cell.heightImage.constant = 256
+                cell.gradientView.isHidden = true
+                cell.mainTitle.isHidden = true
+            }else{
+                cell.heightImage.constant = 128
+                cell.gradientView.isHidden = false
+                cell.mainTitle.isHidden = false
+            }
+        }
+        
+        // Configure the cell
+        //cell.backgroundColor = .red
+        
         
         if(isExpanded[indexPath.row]){
             cell.heightImage.constant = 256
@@ -201,7 +239,8 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
     }
     
     func didTouchSave(indexPath: IndexPath) {
-        let favorito = randomData[indexPath.row]
+        var favorito = Favoritos(RecordId: "")
+        favorito.RecordId = randomData[indexPath.row].RecordId!.recordName
         print("salvando favoritos")
         favorito.createRecord(){
             error in
@@ -254,10 +293,21 @@ class ExploreCollectionViewController: UICollectionViewController, ExpandedCellD
 extension ExploreCollectionViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if isExpanded[indexPath.row] == true{
-            return CGSize(width: cellWidth, height: expandedHeight)
-        }else{
-            return CGSize(width: cellWidth, height: notExpanded)
+        
+        
+        if(indexPath.section == 0){
+            if isExpanded[indexPath.row] == true{
+                return CGSize(width: cellWidth, height: expandedHeight)
+            }else{
+                return CGSize(width: cellWidth, height: notExpanded)
+            }
+        }else if(indexPath.section == 1){
+            if isExpandedFav[indexPath.row] == true{
+                return CGSize(width: cellWidth, height: expandedHeight)
+            }else{
+                return CGSize(width: cellWidth, height: notExpanded)
+            }
         }
+        return CGSize(width: cellWidth, height: notExpanded)
     }
 }
